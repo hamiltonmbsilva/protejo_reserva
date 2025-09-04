@@ -16,14 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from reservas.views import dashboard_view
 from django.conf import settings # Importe as configurações
 from django.conf.urls.static import static # Importe a função para servir arquivos estáticos
 
 
-urlpatterns = [ 
+urlpatterns = [    
     path('admin/', admin.site.urls),
     path('api/', include('reservas.urls')),
 ]
+
+# Sobrescreve a página inicial do admin para usar nossa view
+admin.site.index = dashboard_view
 
 # Adiciona a URL de mídia apenas em modo de desenvolvimento
 if settings.DEBUG:
