@@ -1,0 +1,82 @@
+# Sistema de Reservas de Hotel (Backend - Django)
+
+Este é o repositório do backend do Sistema de Reservas de Hotel, desenvolvido com o framework Python **Django** e o **Django REST Framework** para a criação de APIs.
+
+---
+
+### 🚀 **Funcionalidades do Backend**
+
+* **API de Hotéis:** Permite a gestão de múltiplos hotéis.
+* **API de Quartos:** Gerencia os quartos, incluindo tipo, capacidade e preço, associados a um hotel.
+* **API de Clientes:** Gerencia as informações dos clientes.
+* **API de Reservas:** Permite a criação, leitura e gestão das reservas.
+* **Filtros de Pesquisa:** Possibilita filtrar quartos por hotel, tipo, e outros critérios.
+
+---
+
+### ⚙️ **Requisitos**
+
+* **Python 3.8+**
+* **pip** (gerenciador de pacotes do Python)
+
+---
+
+### 🛠️ **Configuração e Instalação**
+
+Siga os passos abaixo para configurar e rodar o projeto em seu ambiente local.
+
+#### **Passo 1: Clonar o Repositório**
+
+```bash
+git clone <URL_DO_SEU_REPOSITORIO>
+cd <nome_da_pasta>
+
+### 🛠️ **Criar e Ativar o Ambiente Virtual**
+
+* **No Windows:**
+python -m venv venv
+.\venv\Scripts\activate
+
+* **No macOS e Linux:**
+python3 -m venv venv
+source venv/bin/activate
+
+### **Instalar as Dependências**
+
+pip install Django djangorestframework django-filter
+
+## **Configurar o Projeto**
+
+# projeto_reservas/settings.py
+
+INSTALLED_APPS = [
+    # ...
+    'rest_framework',
+    'django_filters',
+    'reservas',
+]
+
+## **Executar as Migrações**
+
+python manage.py makemigrations
+python manage.py migrate
+
+## **Criar um Superusuário**
+
+python manage.py createsuperuser
+
+## **🖥️ Como Rodar o Projeto**
+
+python manage.py runserver
+
+O servidor estará disponível em: http://127.0.0.1:8000/
+
+## **📋 Endpoints da API**
+
+Hotéis: http://127.0.0.1:8000/api/hoteis/
+
+Quartos: http://127.0.0.1:8000/api/quartos/
+
+Clientes: http://127.0.0.1:8000/api/clientes/
+
+Reservas: http://127.0.0.1:8000/api/reservas/
