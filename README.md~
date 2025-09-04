@@ -11,6 +11,9 @@ Este é o repositório do backend do Sistema de Reservas de Hotel, desenvolvido 
 * **API de Clientes:** Gerencia as informações dos clientes.
 * **API de Reservas:** Permite a criação, leitura e gestão das reservas.
 * **Filtros de Pesquisa:** Possibilita filtrar quartos por hotel, tipo, e outros critérios.
+* **Painel Administrativo Personalizado:** O painel do Django foi customizado com o **Django Jazzmin**, incluindo um dashboard de métricas na página inicial para monitorar o negócio.
+* **Upload de Imagens:** Suporte para upload de arquivos de imagem através do painel administrativo e da API.
+
 
 ---
 
@@ -18,7 +21,8 @@ Este é o repositório do backend do Sistema de Reservas de Hotel, desenvolvido 
 
 * **Python 3.8+**
 * **pip** (gerenciador de pacotes do Python)
-
+* **Pillow** (biblioteca para processamento de imagens)
+* **Django Jazzmin** (tema administrativo)
 ---
 
 ### 🛠️ **Configuração e Instalação**
@@ -50,11 +54,69 @@ pip install Django djangorestframework django-filter
 # projeto_reservas/settings.py
 
 INSTALLED_APPS = [
-    # ...
+    'jazzmin',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    # ... (outros apps padrão)
     'rest_framework',
     'django_filters',
     'reservas',
 ]
+
+## ** MEDIA e TEMPLATES **
+
+# Configurações para arquivos de mídia (imagens)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
+
+# Configuração de templates para o dashboard
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+## **JAZZMIN_SETTINGS**
+
+JAZZMIN_SETTINGS = {
+    "site_title": "reserva HDS",
+    "site_header": "reserva HDS",
+    "site_brand": "reserva HDS",
+    "welcome_sign": "Bem-vindo ao sistema de reservas HDS",
+    "copyright": "HDS desenvolvedor",
+    "site_logo": "img/logo.png", # Coloque a sua imagem em static/img/logo.png
+    "theme": "flatly", # Exemplo de tema
+}
+
+## **urls.py**
+# projeto_reservas/urls.py
+
+from django.contrib import admin
+from django.urls import path, include
+from reservas.views import dashboard_view
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/', include('reservas.urls')),
+]
+
+admin.site.index = dashboard_view
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
 
 ## **Executar as Migrações**
 
