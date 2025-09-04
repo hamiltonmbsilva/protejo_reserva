@@ -14,7 +14,7 @@ class HotelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Hotel
-        fields = ['id', 'nome', 'descricao', 'endereco', 'cidade', 'estado', 'pais', 'quartos']
+        fields = ['id', 'nome', 'descricao', 'endereco', 'cidade', 'estado', 'pais','imagem_principal', 'quartos']
 
 # Serializer para o modelo Cliente
 class ClienteSerializer(serializers.ModelSerializer):

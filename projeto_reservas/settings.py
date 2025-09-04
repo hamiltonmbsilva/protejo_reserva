@@ -154,3 +154,6 @@ JAZZMIN_SETTINGS = {
     # Veja a documentação para mais opções: https://jazzmin.readthedocs.io/
 }
 
+# Configurações para arquivos de mídia (imagens)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')

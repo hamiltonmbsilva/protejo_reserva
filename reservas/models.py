@@ -8,6 +8,7 @@ class Hotel(models.Model):
     cidade = models.CharField(max_length=100, help_text="Cidade onde o hotel está localizado.")
     estado = models.CharField(max_length=100, help_text="Estado onde o hotel está localizado.")
     pais = models.CharField(max_length=100, help_text="País onde o hotel está localizado.")
+    imagem_principal = models.ImageField(upload_to='hoteis_imagens/', blank=True, null=True, help_text="Imagem principal do hotel.")
     
     class Meta:
         verbose_name = "Hotel"
@@ -31,6 +32,7 @@ class Quarto(models.Model):
     capacidade = models.IntegerField(help_text="Número máximo de hóspedes.")
     preco_por_noite = models.DecimalField(max_digits=10, decimal_places=2, help_text="Preço por noite.")
     disponivel = models.BooleanField(default=True, help_text="Status de disponibilidade.")
+    imagem = models.ImageField(upload_to='quartos_imagens/', blank=True, null=True, help_text="Imagem do quarto.")
     
     class Meta:
         verbose_name = "Quarto"
