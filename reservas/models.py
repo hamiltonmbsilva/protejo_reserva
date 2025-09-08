@@ -1,7 +1,22 @@
 from django.db import models
+from django.contrib.auth.models import User
 
+# Modelo para o Proprietário do Hotel
+class Proprietario(models.Model):
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, help_text="Usuário associado a este proprietário.")
+    telefone = models.CharField(max_length=20, blank=True, null=True)
+    data_criacao = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.usuario.username
+
+    class Meta:
+        verbose_name = "Proprietário"
+        verbose_name_plural = "Proprietários"
+        
 # Modelo para o Hotel
 class Hotel(models.Model):
+    proprietario = models.ForeignKey(Proprietario, on_delete=models.CASCADE, related_name='hoteis', help_text="Proprietário deste hotel.")
     nome = models.CharField(max_length=200, help_text="Nome do hotel.")
     descricao = models.TextField(blank=True, help_text="Descrição detalhada do hotel.")
     endereco = models.CharField(max_length=255, help_text="Endereço completo do hotel.")
@@ -78,3 +93,4 @@ class Reserva(models.Model):
 
     def __str__(self):
         return f"Reserva de {self.cliente.nome} para o Quarto {self.quarto.numero}"
+
