@@ -25,12 +25,19 @@ class Hotel(models.Model):
     pais = models.CharField(max_length=100, help_text="País onde o hotel está localizado.")
     imagem_principal = models.ImageField(upload_to='hoteis_imagens/', blank=True, null=True, help_text="Imagem principal do hotel.")
     
+    def __str__(self):
+        return self.nome
+    
     class Meta:
         verbose_name = "Hotel"
         verbose_name_plural = "Hotéis"
+        # Adicione as permissões personalizadas aqui
+        permissions = [
+            ("pode_gerenciar_hoteis", "Pode gerenciar hotéis"),
+            ("pode_ver_metricas_proprietario", "Pode ver as métricas do proprietário"),
+        ]
         
-    def __str__(self):
-        return self.nome
+   
 
 # Modelo para o Quarto
 class Quarto(models.Model):
@@ -53,6 +60,10 @@ class Quarto(models.Model):
         verbose_name = "Quarto"
         verbose_name_plural = "Quartos"
         unique_together = ('hotel', 'numero') # Garante que o número do quarto seja único por hotel
+        permissions = [
+            ("pode_gerenciar_quartos", "Pode gerenciar quartos"),
+            ("pode_controlar_vagas", "Pode controlar a disponibilidade dos quartos"),
+        ]
 
     def __str__(self):
         return f"Quarto {self.numero} ({self.hotel.nome})"

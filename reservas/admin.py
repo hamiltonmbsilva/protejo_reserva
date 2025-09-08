@@ -1,5 +1,50 @@
 from django.contrib import admin
+from django.contrib.admin import AdminSite
+from django.contrib.auth.models import  User,Group
 from .models import Hotel, Quarto, Cliente, Reserva, Proprietario
+
+# 1. Crie uma classe de AdminSite personalizada
+class ProprietarioAdminSite(AdminSite):
+    def get_app_list(self, request):
+        app_list = super().get_app_list(request)
+        
+        # Se o usuário não for um superusuário, filtre a lista de apps
+        if not request.user.is_superuser:
+            # Lista de apps que o proprietário deve ver
+            apps_permitidos = ['reservas']
+            
+            nova_app_list = []
+            for app in app_list:
+                # Mantenha apenas os apps permitidos
+                if app['app_label'].lower() in apps_permitidos:
+                    # Filtra os modelos dentro dos apps
+                    modelos_permitidos = ['hotel', 'quarto', 'reserva', 'cliente']
+                    
+                    if app['app_label'].lower() == 'reservas':
+                        app['models'] = [
+                            m for m in app['models'] 
+                            if m['object_name'].lower() in modelos_permitidos
+                        ]
+                    nova_app_list.append(app)
+            return nova_app_list
+        
+        return app_list
+
+# 2. Crie uma instância do seu painel personalizado
+proprietario_admin_site = ProprietarioAdminSite(name='proprietario_admin')
+
+# 3. Registre todos os modelos (padrão e personalizados) na nova instância
+proprietario_admin_site.register(Proprietario)
+proprietario_admin_site.register(Hotel)
+proprietario_admin_site.register(Quarto)
+proprietario_admin_site.register(Cliente)
+proprietario_admin_site.register(Reserva)
+
+# Registre os modelos padrão do Django
+proprietario_admin_site.register(User)
+proprietario_admin_site.register(Group)
+
+
 
 # Registra o modelo Proprietario
 @admin.register(Proprietario)

@@ -19,12 +19,19 @@ from django.urls import path, include
 from reservas.views import dashboard_view
 from django.conf import settings # Importe as configurações
 from django.conf.urls.static import static # Importe a função para servir arquivos estáticos
-
+# Importe a sua nova instância do painel de administração
+from reservas.admin import proprietario_admin_site
 
 urlpatterns = [    
-    path('admin/', admin.site.urls),
+    path('admin/', proprietario_admin_site.urls),
     path('api/', include('reservas.urls')),
 ]
+
+# Configure o dashboard personalizado no novo painel
+proprietario_admin_site.index = dashboard_view
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Sobrescreve a página inicial do admin para usar nossa view
 admin.site.index = dashboard_view
