@@ -129,6 +129,9 @@ python manage.py createsuperuser
 
 ## **🖥️ Como Rodar o Projeto**
 
+#Para habilita o ambiente virtual (venv)
+.\venv\Scripts\activate 
+
 python manage.py runserver
 
 O servidor estará disponível em: http://127.0.0.1:8000/
@@ -142,3 +145,5 @@ Quartos: http://127.0.0.1:8000/api/quartos/
 Clientes: http://127.0.0.1:8000/api/clientes/
 
 Reservas: http://127.0.0.1:8000/api/reservas/
+
+Acessar Area Administrativa: http://127.0.0.1:8000/admin/logout/
