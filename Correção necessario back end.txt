@@ -1,0 +1,13 @@
+Rotas Reservas
+
+ http://127.0.0.1:8000/api/hoteis/
+ http://127.0.0.1:8000/api/quartos/
+http://127.0.0.1:8000/api/quartos/?hotel=1
+SuperAdmin
+hamilton_mb
+Ha@247845
+Usuario_Teste
+teste@1234
+
+
+Correção para mostrar os valores das Dashbord

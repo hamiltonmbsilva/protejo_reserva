@@ -22,19 +22,24 @@ from django.conf.urls.static import static # Importe a função para servir arqu
 # Importe a sua nova instância do painel de administração
 from reservas.admin import proprietario_admin_site
 
+
+# Atribua a dashboard_view à instância de admin que será usada
+proprietario_admin_site.index = dashboard_view
+
+# Configure o template que a view irá usar
+proprietario_admin_site.index_template = 'index.html'
+
 urlpatterns = [    
     path('admin/', proprietario_admin_site.urls),
     path('api/', include('reservas.urls')),
 ]
 
-# Configure o dashboard personalizado no novo painel
-proprietario_admin_site.index = dashboard_view
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#if settings.DEBUG:
+#    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Sobrescreve a página inicial do admin para usar nossa view
-admin.site.index = dashboard_view
+#admin.site.index = dashboard_view
 
 # Adiciona a URL de mídia apenas em modo de desenvolvimento
 if settings.DEBUG:

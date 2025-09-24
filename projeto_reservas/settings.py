@@ -39,12 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'reservas',
     'django_filters',
     'rest_framework',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -60,10 +62,11 @@ ROOT_URLCONF = 'projeto_reservas.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'projeto_reservas','templates')],
         'APP_DIRS': True,
         'OPTIONS': {
-            'context_processors': [                
+            'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -152,7 +155,18 @@ JAZZMIN_SETTINGS = {
     
     # Opcional: Melhorar o layout do admin (cores, etc)
     # Veja a documentação para mais opções: https://jazzmin.readthedocs.io/
+
+    # "hide_models": [
+    #     "auth.group",
+    #     "auth.user",
+    #     "reservas.proprietario", # Provavelmente você não quer que eles alterem isso
+    # ],
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 
 # Configurações para arquivos de mídia (imagens)
 MEDIA_URL = '/media/'

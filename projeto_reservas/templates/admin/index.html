@@ -1,0 +1,35 @@
+{% extends 'index.html' %}
+{% load i18n static %}
+{% block content_main %}
+<div class="dashboard-container">
+    <div class="metric-card">
+        <div class="metric-value">{{ total_hoteis }}</div>
+        <div class="metric-title">Total de Hotéis</div>
+    </div>
+
+    <div class="metric-card">
+        <div class="metric-value">{{ total_quartos }}</div>
+        <div class="metric-title">Total de Quartos</div>
+    </div>
+
+    <div class="metric-card">
+        <div class="metric-value">{{ quartos_disponiveis }}</div>
+        <div class="metric-title">Quartos Disponíveis</div>
+    </div>
+
+    <div class="metric-card">
+        <div class="metric-value">{{ quartos_alugados }}</div>
+        <div class="metric-title">Quartos Alugados</div>
+    </div>
+
+    <div class="metric-card">
+        <div class="metric-value">{{ total_clientes }}</div>
+        <div class="metric-title">Total de Clientes</div>
+    </div>
+
+    <div class="metric-card">
+        <div class="metric-value">{{ total_reservas }}</div>
+        <div class="metric-title">Total de Reservas</div>
+    </div>
+</div>
+{% endblock %}
