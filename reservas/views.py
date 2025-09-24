@@ -94,9 +94,16 @@ class QuartoViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     # Este método filtra a lista de quartos pelos hotéis do proprietário logado
     def get_queryset(self):
+        # Passo 1: Se o usuário for um superusuário ou staff, mostre todos os quartos.
         if self.request.user.is_superuser or self.request.user.is_staff:
             return Quarto.objects.all()
 
+        # Passo 2: Se o usuário for anônimo (não logado), mostre todos os quartos.
+        # Isso é crucial para que o front-end de visitantes possa ver os quartos.
+        if isinstance(self.request.user, AnonymousUser):
+            return Quarto.objects.all()
+
+        # Passo 3: Para um usuário comum autenticado, filtre pelos quartos do seu hotel.
         try:
             proprietario = Proprietario.objects.get(usuario=self.request.user)
             # Filtra os quartos pelos hotéis que pertencem a este proprietário

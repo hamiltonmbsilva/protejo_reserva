@@ -21,6 +21,8 @@ from django.conf import settings # Importe as configurações
 from django.conf.urls.static import static # Importe a função para servir arquivos estáticos
 # Importe a sua nova instância do painel de administração
 from reservas.admin import proprietario_admin_site
+from rest_framework.routers import DefaultRouter
+from reservas.views import HotelViewSet, QuartoViewSet # Importe QuartoViewSet
 
 
 # Atribua a dashboard_view à instância de admin que será usada
@@ -29,9 +31,14 @@ proprietario_admin_site.index = dashboard_view
 # Configure o template que a view irá usar
 proprietario_admin_site.index_template = 'index.html'
 
+router = DefaultRouter()
+router.register(r'hoteis', HotelViewSet, basename='hoteis')
+router.register(r'quartos', QuartoViewSet, basename='quartos') # Adicione a rota para quartos
+
 urlpatterns = [    
     path('admin/', proprietario_admin_site.urls),
     path('api/', include('reservas.urls')),
+    path('api/', include(router.urls)),
 ]
 
 
