@@ -166,6 +166,7 @@ JAZZMIN_SETTINGS = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "http://192.168.2.190:3000",
 ]
 
 # Configurações para arquivos de mídia (imagens)
